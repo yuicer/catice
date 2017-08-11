@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-	con = mongoose.createConnection('mongodb://10.10.1.3:27017/test'),
+	con = mongoose.createConnection('mongodb://127.0.0.1:27017/test'),
 	UsersSchema = new mongoose.Schema({
 		name: {
 			type: String,
