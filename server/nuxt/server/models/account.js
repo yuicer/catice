@@ -1,10 +1,10 @@
 var mongoose = require('mongoose'),
 	con = mongoose.createConnection('mongodb://127.0.0.1:27017/test'),
 	AccountSchema = new mongoose.Schema({
-		account: {},
-		password: {},
-		create_time: {},
-		access_token: {}
+		account: '',
+		password: '',
+		create_time: '',
+		//		access_token: {}
 		//		name: {
 		//			type: String,
 		//			required: [true, 'name is required'],

@@ -1,42 +1,91 @@
 <template>
-<div id="main">	
-	<div @click="sign_up" id="sign_up">sign up</div>
-	<div id="login">
-		<div id="box"  v-if="is_sign_in">	
-				<input type="text" v-model='phone_number' maxlength="11" placeholder="ID" @keyup.enter="sign_in">
-				<input type="password" v-model='password' placeholder="Password" maxlength="16" @keyup.enter="sign_in">
-			<div id="error">
-					{{error}}
-			</div>
-			<div @click="sign_in" id="sign_in">sign in</div>
+<div id="main">
+	<div id="outbox">	
+		<div @click="sign_switch" id="sign_up">sign up</div>
+		<div id="login">
+			<transition name="fade" mode="out-in">
+				<!--登录-->
+				<div id="box"  v-if="is_sign_in" key="sign_in">	
+						<input type="text" v-model='sign_in_mail' maxlength="20" placeholder="mail" @keyup.enter="sign_in">
+						<input type="password" v-model='sign_in_password' placeholder="Password" maxlength="16" @keyup.enter="sign_in">
+						<div @click="sign_in" class="sign">sign in</div>
+						<transition name="fade">
+						<div id="error" v-show="error">
+							{{error}}
+						</div>
+						</transition>
+				</div>
+				<!--注册-->
+				<div v-else key="sign_up">
+						<input type="text" v-model='sign_up_mail' maxlength="20" placeholder="your mail" @keyup.enter="sign_up">
+						<input type="text" v-model='sign_up_password' maxlength="16" placeholder="your password" @keyup.enter="sign_up">
+						<input type="text" v-model='sign_up_code' placeholder="verification code" @keyup.enter="sign_up">
+						<div @click="sign_up" class="sign">sign up</div>
+						<transition name="fade">
+						<div id="error" v-show="error">
+							{{error}}
+						</div>
+						</transition>
+				</div>
+			</transition>
 		</div>
-		<div v-else>
-				<input type="text" v-model='phone_number' maxlength="11" placeholder="ID" @keyup.enter="sign_in">
-		</div>
-	</div>
-</div>
+	</div>	</div>
 </template>
 <script>
 	export default {
 		data() {
 			return {
 				is_sign_in: true,
-				phone_number: '',
-				password: '',
+				sign_in_mail: '',
+				sign_in_password: '',
 				error: '',
+				sign_up_mail: '',
+				sign_up_password: '',
+				sign_up_code: '',
+				code: '',
 			}
 		},
 		mounted() {
 
 		},
+		watch: {
+			error: function(val, oldVal) {
+				var me = this;
+				setTimeout(() => {
+					me.error = ''
+				}, 1000)
+			}
+		},
 		methods: {
+			sign_up() {
+				var me = this;
+				if (me.sign_up_mail === '' || me.sign_up_password === '') {
+					me.error = "options can not be null"
+					return;
+				}
+				me.axios.post('account/sign_up', {
+						mail: me.sign_up_mail,
+						password: me.sign_up_password,
+						code: me.sign_up_code
+					})
+					.then(
+						(res) => {
+							console.log(res)
+						}
+					)
+
+			},
 			sign_in() {
+				var me = this;
+				if (me.sign_in_mail === '' || me.sign_in_password === '') {
+					me.error = "Incorrect username or password."
+					return;
+				}
 				//传数据判断用户输入的信息是否正确，正确后执行下面函数
 				//返回id，设置id
-				var me = this;
-				me.axios.get('account', {
+				me.axios.get('account/sign_in', {
 					params: {
-						phone: '123456',
+						mail: '123456',
 						password: '111111'
 					},
 				}).then(
@@ -45,7 +94,8 @@
 					},
 				)
 			},
-			sign_up() {
+			sign_switch() {
+				this.error = '';
 				this.is_sign_in = !this.is_sign_in;
 			},
 			set_location() {
@@ -76,7 +126,7 @@
 		transition: all .3s;
 	}
 	
-	#sign_in {
+	.sign {
 		color: white;
 		width: 300px;
 		height: 50px;
@@ -91,7 +141,7 @@
 		transition: all .3s;
 	}
 	
-	#sign_in:hover,
+	.sign:hover,
 	#sign_up:hover {
 		background: #222;
 		border: 1px solid #333;
@@ -99,10 +149,14 @@
 	
 	#error {
 		height: 40px;
-		width: 100%;
+		width: 300px;
 		font-size: 18px;
-		line-height: 2;
-		display: inline-block;
+		line-height: 40px;
+		color: #fff;
+		margin-top: 30px;
+		padding: 0 10px;
+		border-radius: 3px;
+		background: #86181d;
 	}
 	
 	input {
@@ -121,13 +175,18 @@
 		position: relative;
 		width: 500px;
 		height: 30vh;
-		left: calc((100vw - 500px)/2);
-		top: 35vh;
+		left: calc((100% - 500px) / 2);
+		top: 30vh;
+	}
+	
+	#outbox {
+		width: 1200px;
+		margin: 0 auto;
+		min-height: 100vh;
+		width: 70%;
 	}
 	
 	#main {
-		min-height: 100vh;
-		width: 100%;
 		background: #333;
 	}
 	
