@@ -6,21 +6,11 @@ const router = Router()
 
 /* GET users listing. */
 router.get('/account/sign_in', function (req, res, next) {
-	account.find({
-		mail: req.params.mail,
-		password: req.params.password
-	}, function (err, docs) {
-		if (err)
-			res.sendStatus(err)
-		else
-			res.send(docs)
-	})
-
+	account.sign_in(req, res);
 })
 
 
 router.post('/account/sign_up', function (req, res, next) {
-	//	res.setHeader('Content-Type', 'text/plain')
 	/*
 		将不正确的json格式
 		  {mail:'b', password: 'bb'}
@@ -33,16 +23,21 @@ router.post('/account/sign_up', function (req, res, next) {
 			password: body.password,
 			create_time: Date.now()
 		});
-	console.log(body.mail)
-	account_.save((err) => {
-		if (err)
-			res.sendStatus(err)
-		else
-			res.send({
-				result: 1
-			})
+	if (req.body.code != 'catice')
+		res.send({
+			error: '验证码错误'
+		})
 
-	})
+	else {
+		account_.save((err) => {
+			if (err)
+				res.sendStatus(err)
+			else
+				res.send({
+					result: 1
+				})
+		})
+	}
 })
 
 

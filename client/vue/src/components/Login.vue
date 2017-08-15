@@ -71,6 +71,11 @@
 					.then(
 						(res) => {
 							console.log(res)
+							if (res.data.error)
+								me.error = res.data.error;
+							else {
+								console.log('注册成功')
+							}
 						}
 					)
 
@@ -85,12 +90,17 @@
 				//返回id，设置id
 				me.axios.get('account/sign_in', {
 					params: {
-						mail: '123456',
-						password: '111111'
+						mail: me.sign_in_mail,
+						password: me.sign_in_password
 					},
 				}).then(
 					(res) => {
 						console.log(res)
+						if (res.data.error)
+							me.error = res.data.error;
+						else {
+							console.log('登录成功')
+						}
 					},
 				)
 			},
