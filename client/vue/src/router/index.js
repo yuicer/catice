@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const Login = resolve => require(['components/Login'], resolve)
 const Not_found = resolve => require(['components/Not_found'], resolve)
+const Login = resolve => require(['components/Login'], resolve)
+const Main = resolve => require(['components/Main'], resolve)
 Vue.use(Router)
 
 export default new Router({
@@ -10,10 +11,15 @@ export default new Router({
 		{
 			path: '/',
 			component: Login
-			}, {
+		},
+		{
 			path: '/Login',
 			component: Login
-			},
+		},
+		{
+			path: '/Main',
+			component: Main
+		},
 //		{
 //			path: '/Main_page',
 //			component: Main_page,

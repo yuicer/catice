@@ -1,7 +1,7 @@
 <template>
 <div id="main">
 	<div id="outbox">	
-		<div @click="sign_switch" id="sign_up">sign up</div>
+		<div @click="sign_switch" id="sign_up">{{sign_switch_word}}</div>
 		<div id="login">
 			<transition name="fade" mode="out-in">
 				<!--登录-->
@@ -36,9 +36,11 @@
 		data() {
 			return {
 				is_sign_in: true,
+				sign_switch_word: 'sign up',
+				//input
+				error: '',
 				sign_in_mail: '',
 				sign_in_password: '',
-				error: '',
 				sign_up_mail: '',
 				sign_up_password: '',
 				sign_up_code: '',
@@ -99,6 +101,7 @@
 						if (res.data.error)
 							me.error = res.data.error;
 						else {
+							me.$router.push('/main')
 							console.log('登录成功')
 						}
 					},
@@ -107,6 +110,7 @@
 			sign_switch() {
 				this.error = '';
 				this.is_sign_in = !this.is_sign_in;
+				this.sign_switch_word = this.sign_switch_word == 'sign in' ? 'sign up' : 'sign in';
 			},
 			set_location() {
 				var a = new Date().getTime()
