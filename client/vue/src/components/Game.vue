@@ -6,7 +6,9 @@
 <!--  		<a-light type="point"  intensity="1"  position="2 4 4"></a-light>      -->
       	<a-sky color="#ECECEC"></a-sky>
 		<a-camera>
-   			<a-cursor></a-cursor>
+   			<a-cursor
+   				animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+   			></a-cursor>
   		</a-camera>
       	<a-box 
 			position="-1 0 -5" 
@@ -31,7 +33,8 @@
 				dur: 2000;
 				loop:true;	
 				easing: easeInOutSine;
-				to: 1.3 0 -3.5;"
+				to: 1.3 0 -3.5;	
+				"
 			scale-on-click		
 				
       	></a-sphere>
@@ -39,10 +42,7 @@
       
       
     </a-scene>
-  	  
-  	  <transition name="fade" mode="out-in">
-  	  	<router-view></router-view>
-      </transition>
+
    </div>
 </template>
 
@@ -63,14 +63,25 @@
 			cursor() {
 				AFRAME.registerComponent('scale-on-click', {
 					schema: {
+						//						dur: '150',
+						from: {
+							default: '0.1 0.1 0.1',
+						},
 						to: {
 							default: '1.2 1.2 1.2'
 						}
+
 					},
 					init: function() {
 						var data = this.data;
 						this.el.addEventListener('click', function() {
-							this.setAttribute('scale', data.to);
+							this.setAttribute('scale', data.from);
+							this.setAttribute('easing', 'easeInOutSine');
+							this.setAttribute('dur', '1500');
+							var me = this;
+							setTimeout(() => {
+								me.setAttribute('scale', data.to);
+							}, 500)
 						});
 					}
 				});

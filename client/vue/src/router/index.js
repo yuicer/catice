@@ -3,7 +3,9 @@ import Router from 'vue-router'
 
 const Not_found = resolve => require(['components/Not_found'], resolve)
 const Login = resolve => require(['components/Login'], resolve)
-const Main = resolve => require(['components/Main'], resolve)
+const Game = resolve => require(['components/Game'], resolve)
+const GluttonousSnake = resolve => require(['components/Game/Snake/GluttonousSnake'], resolve)
+
 Vue.use(Router)
 
 export default new Router({
@@ -13,13 +15,18 @@ export default new Router({
 			component: Login
 		},
 		{
-			path: '/Login',
+			path: '/login',
 			component: Login
 		},
 		{
-			path: '/Main',
-			component: Main
+			path: '/game',
+			component: Game,
 		},
+		{
+			path: '/game/snake',
+			component: GluttonousSnake
+		},
+
 //		{
 //			path: '/Main_page',
 //			component: Main_page,
