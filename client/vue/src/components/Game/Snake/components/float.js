@@ -1,4 +1,3 @@
-require('aframe')
 AFRAME.registerComponent('float', {
 	schema: {
 		animation: {
@@ -11,7 +10,7 @@ AFRAME.registerComponent('float', {
 		}
 
 	},
-	init: function () {
+	init() {
 		var data = this.data;
 		this.el.setAttribute('animation__float', data.animation + 'to:' + data.to);
 	}

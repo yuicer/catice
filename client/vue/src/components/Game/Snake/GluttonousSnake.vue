@@ -1,5 +1,5 @@
 <template>
-   <div id="box">
+   <div>
   	  
   	<a-scene>
 <!--		<a-light type="ambient"  color="#445451"></a-light>-->
@@ -10,13 +10,13 @@
    				
    			></a-cursor>
   		</a-camera>
-      	<a-box 
+      	<a-box
+      		id="box"
 			position="-1 0 -5" 
 			rotation="45 45 0" 
 			color="#4CC3D9"
 			float="to: -1 0.5 -5;"
 			scale_click
-			
       	></a-box>
       
     </a-scene>
@@ -33,9 +33,14 @@
 		},
 		mounted() {
 			var me = this;
+			me.test();
 		},
 		methods: {
+			test() {
+				var cc = document.querySelector('#box').object3D;
+				console.log(cc)
 
+			}
 		},
 	}
 

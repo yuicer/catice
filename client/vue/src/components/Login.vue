@@ -2,10 +2,10 @@
 <div id="main">
 	<div id="outbox">	
 		<div @click="sign_switch" id="sign_up">{{sign_switch_word}}</div>
-		<div id="login">
+		<div id="box">
 			<transition name="fade" mode="out-in">
 				<!--登录-->
-				<div id="box"  v-if="is_sign_in" key="sign_in">	
+				<div v-if="is_sign_in" key="sign_in">	
 						<input type="text" v-model='sign_in_mail' maxlength="20" placeholder="mail" @keyup.enter="sign_in">
 						<input type="password" v-model='sign_in_password' placeholder="Password" maxlength="16" @keyup.enter="sign_in">
 						<div @click="sign_in" class="sign">sign in</div>
@@ -29,7 +29,8 @@
 				</div>
 			</transition>
 		</div>
-	</div>	</div>
+	</div>	
+	</div>
 </template>
 <script>
 	export default {
@@ -45,6 +46,7 @@
 				sign_up_password: '',
 				sign_up_code: '',
 				code: '',
+				timer: 0,
 			}
 		},
 		mounted() {
@@ -53,7 +55,8 @@
 		watch: {
 			error: function(val, oldVal) {
 				var me = this;
-				setTimeout(() => {
+				clearTimeout(me.timer)
+				me.timer = setTimeout(() => {
 					me.error = ''
 				}, 1000)
 			}
@@ -63,7 +66,7 @@
 				var me = this;
 				if (me.sign_up_mail === '' || me.sign_up_password === '') {
 					me.error = "options can not be null"
-					return;
+					return
 				}
 				me.axios.post('account/sign_up', {
 						mail: me.sign_up_mail,
@@ -74,7 +77,7 @@
 						(res) => {
 							console.log(res)
 							if (res.data.error)
-								me.error = res.data.error;
+								me.error = res.data.error
 							else {
 								console.log('注册成功')
 							}
@@ -86,7 +89,7 @@
 				var me = this;
 				if (me.sign_in_mail === '' || me.sign_in_password === '') {
 					me.error = "Incorrect username or password."
-					return;
+					return
 				}
 				//传数据判断用户输入的信息是否正确，正确后执行下面函数
 				//返回id，设置id
@@ -99,7 +102,7 @@
 					(res) => {
 						console.log(res)
 						if (res.data.error)
-							me.error = res.data.error;
+							me.error = res.data.error
 						else {
 							me.$router.push('/main')
 							console.log('登录成功')
@@ -108,15 +111,15 @@
 				)
 			},
 			sign_switch() {
-				this.error = '';
-				this.is_sign_in = !this.is_sign_in;
-				this.sign_switch_word = this.sign_switch_word == 'sign in' ? 'sign up' : 'sign in';
+				this.error = ''
+				this.is_sign_in = !this.is_sign_in
+				this.sign_switch_word = this.sign_switch_word == 'sign in' ? 'sign up' : 'sign in'
 			},
 			set_location() {
 				var a = new Date().getTime()
-				localStorage.setItem('time', a);
+				localStorage.setItem('time', a)
 				//过期时间一周
-				localStorage.setItem('expire', 604800000);
+				localStorage.setItem('expire', 604800000)
 			},
 		},
 
@@ -185,12 +188,12 @@
 		padding-left: 20px;
 	}
 	
-	#login {
+	#box {
 		position: relative;
 		width: 500px;
 		height: 30vh;
 		left: calc((100% - 500px) / 2);
-		top: 30vh;
+		top: 40vh;
 	}
 	
 	#outbox {
