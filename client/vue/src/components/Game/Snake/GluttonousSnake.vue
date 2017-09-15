@@ -31,7 +31,7 @@
 </template>
 
 <script>
-	require('aframe')
+	require('static/aframe')
 	require('aframe-animation-component');
 	require('./components')
 	//no-click
