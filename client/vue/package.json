@@ -1,5 +1,5 @@
 {
-  "name": "vue",
+  "name": "yuicer",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "yuicer <yuicer@yeah.net>",
@@ -13,6 +13,7 @@
     "aframe": "^0.6.1",
     "aframe-animation-component": "^3.2.5",
     "axios": "^0.16.2",
+    "three": "^0.87.1",
     "vue": "^2.3.3",
     "vue-router": "^2.6.0",
     "vuex": "^2.3.1"
