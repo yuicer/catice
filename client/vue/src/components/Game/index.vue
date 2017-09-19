@@ -1,22 +1,25 @@
 <template>
    <div>
-  	  
+  	  <div id="111"></div>
   	<a-scene>
 <!--		<a-light type="ambient"  color="#445451"></a-light>-->
 <!--  		<a-light type="point"  intensity="1"  position="2 4 4"></a-light>      -->
       	<a-assets>
       		<img id="advertisement" src="~assets/logo.png">
       	</a-assets>
-      	<a-sky color="#aaa"></a-sky>
-      	<a-box
-      		id="snake"
-      		position="0,0,0"
-      		color="#000"	      		
-      	>
-			<a-camera id="camera" look-controls="enabled:false" wasd-controls="fly:true">
-				<a-cursor id="cursor"></a-cursor>
-			</a-camera>
-      	</a-box>
+      	
+      	<a-sky color="#ddd"></a-sky>
+      	
+		<a-camera id="camera" look-controls="enabled:true" wasd-controls="fly:true"  universal-controls>
+			<a-box
+				id="snake"
+				position="0,0,0"
+				color="#000"	      		
+			>
+					<a-cursor id="cursor"></a-cursor>
+			</a-box>
+		</a-camera>
+      	
       	<a-box      	
       		id="box"
 			position="-1 0 -5" 
@@ -25,8 +28,7 @@
 			visible="false"	
 			scale_click
       	></a-box>
-<!--      	<a-plane id="plane" src="#advertisement" height="10" width="10" rotation="-90 0 0" position="0 0 -10" ></a-plane>-->
-      	<a-plane id="plane" src="#advertisement" height="10" width="10" rotation="0 0 90" position="0 0 -10"  scale_click></a-plane>
+<!--      	<a-plane id="plane" src="#advertisement" height="10" width="10" rotation="0 0 90" position="0 0 -10"  scale_click></a-plane>-->
       	
       
     </a-scene>
@@ -36,6 +38,7 @@
 <script>
 	require('aframe')
 	require('aframe-animation-component');
+	require('aframe-physics-system');
 	require('./components')
 	//no-click
 	export default {
