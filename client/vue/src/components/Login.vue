@@ -61,7 +61,7 @@
 				}, 1000)
 			}
 		},
-		methods: {
+		methods: {  	
 			sign_up() {
 				var me = this;
 				if (me.sign_up_mail === '' || me.sign_up_password === '') {
