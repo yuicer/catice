@@ -9,7 +9,6 @@
       	</a-assets>
       	
       	<a-sky color="#ddd"></a-sky>
-      	
 		<a-camera id="camera" look-controls="enabled:true" wasd-controls="fly:true"  universal-controls>
 			<a-box
 				id="snake"

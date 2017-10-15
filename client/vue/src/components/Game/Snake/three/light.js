@@ -1,4 +1,4 @@
-import vm from 'src/main.js'
+import vm from 'src/main.js';
 var vs = vm.$store.state;
 var light = {
 	init: function () {
@@ -16,6 +16,6 @@ var light = {
 
 		vs.light[0] = new THREE.AmbientLight(0x666666);
 	},
-}
+};
 
 export default light;

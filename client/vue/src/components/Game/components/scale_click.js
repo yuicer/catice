@@ -20,7 +20,7 @@ AFRAME.registerComponent('scale_click', {
 			me.timer = setTimeout(() => {
 				me.el.removeAttribute('animation__scale');
 				me.timer = 0;
-			}, 700)
+			}, 700);
 		});
 	}
 });

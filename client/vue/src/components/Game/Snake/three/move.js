@@ -25,7 +25,7 @@ var move = {
 		//init const
 		var me = this;
 		me.yuusya = vs.mesh[0];
-		me.dom = document.getElementById('canvas')
+		me.dom = document.getElementById('canvas');
 		me.clock = new THREE.Clock();
 		me.clock.start();
 		move.keyboard();
