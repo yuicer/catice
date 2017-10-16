@@ -1,24 +1,23 @@
 <template>
-   <div>
-   	
-   404
-   </div>
+	<div>
+
+		404
+	</div>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {}
-		},
-		components: {},
-		methods: {
+export default {
+	data() {
+		return {}
+	},
+	components: {},
+	methods: {
 
-		},
-	}
+	},
+}
 
 </script>
 
 <style>
-
 
 </style>

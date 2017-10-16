@@ -13,11 +13,16 @@
     "aframe": "^0.7.0",
     "aframe-animation-component": "^3.2.5",
     "aframe-physics-system": "^2.0.0",
+    "autoprefixer": "^7.1.5",
     "axios": "^0.16.2",
+    "connect-history-api-fallback": "^1.4.0",
+    "copy-webpack-plugin": "^4.1.1",
+    "express": "^4.16.2",
     "three": "^0.87.1",
-    "vue": "^2.3.3",
-    "vue-router": "^2.6.0",
-    "vuex": "^2.3.1"
+    "vue": "^2.5.0",
+    "vue-router": "^2.8.0",
+    "vue-template-compiler": "^2.5.0",
+    "vuex": "^2.5.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
