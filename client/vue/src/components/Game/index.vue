@@ -10,13 +10,14 @@
 
 			<a-sky color="#ddd"></a-sky>
 
-			<a-camera id="camera" look-controls="enabled:true" wasd-controls="fly:true" universal-controls>
-				<a-box id="snake" position="0,0,0" color="#000">
+			<a-camera id="camera" look-controls="enabled:true" wasd-controls="enabled:false" user-height="0">
+				<a-box id="snake" position="0 -1 -0.5" color="#000" walk>
 					<a-cursor id="cursor"></a-cursor>
+					<a-box position="0 0 -1"></a-box>
 				</a-box>
 			</a-camera>
 
-			<a-box id="box" position="-1 0 -5" color="#4CC3D9" float="to: -1 0.5 -5;" visible="false" scale_click></a-box>
+			<a-box id="box" position="0 0 -5" color="#4CC3D9" float="to: -1 1 -5;" visible="false" scale_click></a-box>
 			<!-- <a-plane id="plane" height="100" width="100" rotation="0 0 45" position="0 -50 0"></a-plane> -->
 
 		</a-scene>
@@ -39,11 +40,10 @@ export default {
 	},
 	methods: {
 		test() {
-			var dom1 = document.querySelector('#box');
-			console.log(dom1.object3D)
+			var dom1 = document.querySelector('#camera');
 			console.log(dom1.components)
+			// console.log(utils)
 			// dom1.components.float.pause();
-			var dom2 = document.querySelector('#cursor');
 		}
 	},
 }
