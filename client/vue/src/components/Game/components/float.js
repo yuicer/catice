@@ -12,5 +12,8 @@ AFRAME.registerComponent('float', {
   init() {
     var data = this.data;
     this.el.setAttribute('animation__float', data.animation + 'to:' + data.to);
+  },
+  pause() {
+    console.log('pause')
   }
 });

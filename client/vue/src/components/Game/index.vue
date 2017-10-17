@@ -7,14 +7,19 @@
 			<a-assets>
 				<img id="advertisement" src="~assets/logo.png">
 			</a-assets>
+
 			<a-sky color="#ddd"></a-sky>
-			<a-camera id="camera" look-controls="enabled:true" wasd-controls="fly:true" universal-controls>
-				<a-box id="snake" position="0,0,0" color="#000">
+
+			<a-box id="snake" position="0 0 0" color="#000" walk look-controls>
+				<a-camera id="camera" position="0 1 1" look-controls="enabled:false" wasd-controls="enabled:false" user-height="0">
 					<a-cursor id="cursor"></a-cursor>
-				</a-box>
-			</a-camera>
-			<a-box id="box" position="-1 0 -5" color="#4CC3D9" float="to: -1 0.5 -5;" visible="false" scale_click></a-box>
-			<!--      	<a-plane id="plane" src="#advertisement" height="10" width="10" rotation="0 0 90" position="0 0 -10"  scale_click></a-plane>-->
+				</a-camera>
+			</a-box>
+			<!-- <a-box position="0 0 -1"></a-box> -->
+
+			<a-box id="box" position="0 0 -5" color="#4CC3D9" float="to: -1 1 -5;" visible="false" scale_click></a-box>
+			<!-- <a-plane id="plane" height="100" width="100" rotation="0 0 45" position="0 -50 0"></a-plane> -->
+
 		</a-scene>
 	</div>
 </template>
@@ -36,9 +41,9 @@ export default {
 	methods: {
 		test() {
 			var dom1 = document.querySelector('#camera');
-			var dom2 = document.querySelector('#cursor');
-
-
+			console.log(dom1.components)
+			// console.log(utils)
+			// dom1.components.float.pause();
 		}
 	},
 }
