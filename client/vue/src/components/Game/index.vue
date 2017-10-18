@@ -1,24 +1,28 @@
 <template>
 	<div>
-		<div id="111"></div>
-		<a-scene>
+		<a-scene physics="debug: true">
 			<!--		<a-light type="ambient"  color="#445451"></a-light>-->
-			<!--  		<a-light type="point"  intensity="1"  position="2 4 4"></a-light>      -->
 			<a-assets>
 				<img id="advertisement" src="~assets/logo.png">
 			</a-assets>
 
 			<a-sky color="#ddd"></a-sky>
 
-			<a-box id="snake" position="0 0 0" color="#000" walk look-controls>
+			<a-box id="snake" static-body position="0 0 0" color="#000" look-controls wasd-controls="fly:true">
 				<a-camera id="camera" position="0 1 1" look-controls="enabled:false" wasd-controls="enabled:false" user-height="0">
 					<a-cursor id="cursor"></a-cursor>
 				</a-camera>
 			</a-box>
-			<!-- <a-box position="0 0 -1"></a-box> -->
-
-			<a-box id="box" position="0 0 -5" color="#4CC3D9" float="to: -1 1 -5;" visible="false" scale_click></a-box>
-			<!-- <a-plane id="plane" height="100" width="100" rotation="0 0 45" position="0 -50 0"></a-plane> -->
+			<!-- <a-box static-body id="box" position="0 0 -5" color="#4CC3D9" float="to: -1 1 -5;" visible="false" scale_click>
+																																		</a-box> -->
+			<a-sphere position="5 0.5 -5" radius="2"></a-sphere>
+			<a-sphere dynamic-body position="3 0.5 -5" radius="1"></a-sphere>
+			<a-sphere dynamic-body position="1 0.5 -5" radius="1"></a-sphere>
+			<a-sphere dynamic-body position="-1 0.5 -5" radius="1"></a-sphere>
+			<a-entity id="box1" dynamic-body="shape: box; mass: 2" position="5 0.5 -5" width="1" height="1" depth="1"></a-entity>
+			<a-box id="box2" dynamic-body position="5 1.5 -5" width="1" height="1" depth="1"></a-box>
+			<a-box id="box3" dynamic-body position="5 2.5 -5" width="1" height="1" depth="1"></a-box>
+			<a-plane static-body id="plane" color="#cac9f5" height="100" width="100" rotation="-90 0 0" position="0 -8 0"></a-plane>
 
 		</a-scene>
 	</div>
@@ -40,10 +44,17 @@ export default {
 	},
 	methods: {
 		test() {
-			var dom1 = document.querySelector('#camera');
-			console.log(dom1.components)
-			// console.log(utils)
-			// dom1.components.float.pause();
+			var playerEl = document.querySelector('#snake').components['static-body'];
+			var box = document.querySelector('#box1');
+			playerEl.el.addEventListener('collide', function(e) {
+				console.log('Player has collided with body #' + e.detail.body.id);
+
+				e.detail.target.el;  // Original entity (playerEl).
+				e.detail.body.el;    // Other entity, which playerEl touched.
+				e.detail.contact;    // Stats about the collision (CANNON.ContactEquation).
+				e.detail.contact.ni; // Normal (direction) of the collision (CANNON.Vec3).
+			});
+			console.log(playerEl)
 		}
 	},
 }

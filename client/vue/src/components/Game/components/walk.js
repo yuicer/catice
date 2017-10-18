@@ -19,6 +19,12 @@ AFRAME.registerComponent('walk', {
     acceleration: {
       default: 65
     },
+    easing: {
+      default: 20
+    },
+    enabled: {
+      default: true
+    },
     adAxis: {
       default: 'x',
       oneOf: ['x', 'y', 'z']
@@ -28,12 +34,6 @@ AFRAME.registerComponent('walk', {
     },
     adInverted: {
       default: false
-    },
-    easing: {
-      default: 20
-    },
-    enabled: {
-      default: true
     },
     wsAxis: {
       default: 'y',
@@ -49,7 +49,7 @@ AFRAME.registerComponent('walk', {
   init() {
     this.keys = {};
     this.position = {};
-    this.velocity = new THREE.Vector3();
+    this.velocity = new THREE.Vector3(0, 0, .001);
     // this.
     this.onKeyDown = bind(this.onKeyDown, this);
     this.onKeyUp = bind(this.onKeyUp, this);
@@ -112,6 +112,7 @@ AFRAME.registerComponent('walk', {
     if (delta > MAX_DELTA) {
       velocity[adAxis] = 0;
       velocity[wsAxis] = 0;
+      velocity.z = 0;
       return;
     }
 
@@ -122,6 +123,9 @@ AFRAME.registerComponent('walk', {
     if (velocity[wsAxis] !== 0) {
       velocity[wsAxis] -= velocity[wsAxis] * data.easing * delta;
     }
+    if (velocity.z !== 0) {
+      velocity.z -= velocity.z * data.easing * delta;
+    }
 
     // Clamp velocity easing.
     if (Math.abs(velocity[adAxis]) < CLAMP_VELOCITY) {
@@ -129,6 +133,9 @@ AFRAME.registerComponent('walk', {
     }
     if (Math.abs(velocity[wsAxis]) < CLAMP_VELOCITY) {
       velocity[wsAxis] = 0;
+    }
+    if (Math.abs(velocity.z) < CLAMP_VELOCITY) {
+      velocity.z = 0;
     }
 
     if (!data.enabled) {
@@ -155,7 +162,7 @@ AFRAME.registerComponent('walk', {
         velocity[wsAxis] -= wsSign * acceleration * delta;
       }
     }
-    velocity.z -= acceleration * delta / 300;
+    velocity.z -= acceleration * delta / 10;
   },
 
   getMovementVector: (function () {
@@ -181,7 +188,6 @@ AFRAME.registerComponent('walk', {
     };
   })(),
   attachKeyEventListeners() {
-    console.log(this.keys)
     window.addEventListener('keydown', this.onKeyDown);
     window.addEventListener('keyup', this.onKeyUp);
   },
