@@ -16,6 +16,9 @@ function isEmptyObject(keys) {
 }
 AFRAME.registerComponent('walk', {
   schema: {
+    speed: {
+      default: .5
+    },
     acceleration: {
       default: 65
     },
@@ -104,6 +107,7 @@ AFRAME.registerComponent('walk', {
     var velocity = this.velocity;
     var wsAxis;
     var wsSign;
+    var speed = data.speed;
 
     adAxis = data.adAxis;
     wsAxis = data.wsAxis;
@@ -162,7 +166,7 @@ AFRAME.registerComponent('walk', {
         velocity[wsAxis] -= wsSign * acceleration * delta;
       }
     }
-    velocity.z -= acceleration * delta / 10;
+    velocity.z -= acceleration * delta * speed;
   },
 
   getMovementVector: (function () {
