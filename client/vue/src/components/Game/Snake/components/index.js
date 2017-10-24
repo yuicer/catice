@@ -4,3 +4,5 @@ require('./float')
 require('./scale_click')
 //移动组件
 require('./walk')
+//队列跟随组件
+require('./queue')

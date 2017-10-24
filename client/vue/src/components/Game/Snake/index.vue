@@ -7,15 +7,14 @@
 			</a-assets>
 
 			<a-sky color="#ddd"></a-sky>
-      <div id="snake_box">
-        <a-box id="snake" static-body position="0 0 0" color="#000" look-controls walk>
+      <!-- <div id="snake_box"> -->
+        <a-box id="snake" static-body position="0 0 0" color="#000" look-controls wasd-controls queue="ishead:true">
           <a-camera id="camera" position="0 1 1" look-controls="enabled:false" wasd-controls="enabled:false" user-height="0">
             <a-cursor id="cursor"></a-cursor>
           </a-camera>
         </a-box>
-        
-      </div>
-      <a-box id="box2"  position="-5 0 -5" float></a-box>
+        <a-box position="0 0 -1" color="#111" queue></a-box>
+      <!-- </div> -->
 			<a-box id="box1" dynamic-body position="5 0 -5" width="1" height="1" depth="1" color="#333"></a-box>
 			<a-plane static-body id="plane" color="#cac9f5" height="100" width="100" rotation="-90 0 0" position="0 -8 0"></a-plane>
 		</a-scene>
@@ -39,7 +38,6 @@ export default {
   methods: {
     test() {
       var box = document.querySelector("#box1");
-      var box2 = document.querySelector("#box2");
       var playerEl = document.querySelector("#snake");
       console.log(box.components["dynamic-body"]);
 
