@@ -10,19 +10,22 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "aframe": "^0.7.0",
+    "aframe": "^0.7.1",
     "aframe-animation-component": "^3.2.5",
     "aframe-physics-system": "^2.1.0",
-    "autoprefixer": "^7.1.5",
+    "autoprefixer": "^7.1.6",
     "axios": "^0.16.2",
+    "babel-preset-env": "^1.6.1",
+    "chalk": "^2.3.0",
     "connect-history-api-fallback": "^1.4.0",
-    "copy-webpack-plugin": "^4.1.1",
+    "copy-webpack-plugin": "^4.2.0",
     "express": "^4.16.2",
     "three": "^0.87.1",
     "vue": "^2.5.2",
     "vue-router": "^2.8.1",
     "vue-template-compiler": "^2.5.2",
-    "vuex": "^2.5.0"
+    "vuex": "^2.5.0",
+    "webpack-hot-middleware": "^2.20.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

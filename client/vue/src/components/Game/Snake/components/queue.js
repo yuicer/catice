@@ -5,10 +5,12 @@ AFRAME.registerSystem('queue', {
   init() {
     var me = this;
     me.position_recording = [];
+    me.rotation_recording = [];
   },
-  add_queue() {
+  add_queue(position, rotation) {
     var me = this;
-    me.position_recording.unshift([])
+    me.position_recording.unshift([position])
+    me.rotation_recording.unshift([rotation])
   },
 })
 AFRAME.registerComponent('queue', {
@@ -17,52 +19,92 @@ AFRAME.registerComponent('queue', {
       default: false
     },
     distance: {
-      default: 3
-    },
-    speed: {
-      default: 1
+      default: 1.2
     },
     frame: {
-      default: 200
+      default: 50
     },
+    data: {
+      default: -1
+    }
   },
   init() {
     var me = this;
     if (me.data.ishead)
       me._id = 0;
-    else
-      me._id = 1;
+    else {
+      me._id = me.data._id;
+    }
     // me._id = me.system.position_recording.length;
-    me.system.add_queue();
-    console.log(me._id)
+    var current_position = {},
+      current_rotation = {};
+    me.Copy(me.el.getAttribute('position'), current_position);
+    me.Copy(me.el.getAttribute('rotation'), current_rotation);
+
+    me.system.add_queue(current_position, current_rotation);
   },
   tick() {
-    var me = this,
-      current_position = me.el.getAttribute('position'),
-      position_recording = me.system.position_recording[me._id];
-    position_recording.push(current_position);
-    if (me.data.ishead) {
+    var me = this;
+    me.DeduplicationStore()
+
+    if (me.data.ishead)
       return;
-    }
-    if (me._id == 0) {
-      return;
-    }
 
     if (me.system.position_recording[me._id - 1].length > me.data.frame) {
-      var target_position = me.system.position_recording[me._id - 1][me.data.frame];
-      if (me.distance(current_position, target_position) > me.data.distance) {
-        console.log(me.distance(current_position, target_position))
-        me.el.setAttribute('position', target_position)
-        console.log(current_position)
-        alert(1)
-        //current_position 出了错
+      var target_position = me.system.position_recording[me._id - 1][me.data.frame],
+        last_current_position = me.system.position_recording[me._id - 1][0],
+        target_rotation = me.system.rotation_recording[me._id - 1][me.data.frame];
+      if (me.Distance(last_current_position, target_position)) {
+        me.el.setAttribute('position', target_position);
+        me.el.setAttribute('rotation', target_rotation);
       }
-      console.log(me.el.getAttribute('position'), target_position)
+      me.system.position_recording[me._id - 1].pop();
+      me.system.rotation_recording[me._id - 1].pop();
     }
-    // position_recording.pop();
 
   },
-  distance(target, current) {
-    return Math.sqrt(Math.pow((target.x - current.x), 2) + Math.pow((target.y - current.y), 2) + Math.pow((target.z - current.z), 2));
+  Distance(target, current) {
+    var flag = false,
+      result = 0;
+    result = Math.sqrt(Math.pow((target.x - current.x), 2) + Math.pow((target.y - current.y), 2) + Math.pow((target.z - current.z), 2));
+    if (result > this.data.distance)
+      flag = true;
+
+    return flag;
+  },
+  Copy(A, B) {
+    for (var i in A) {
+      B[i] = A[i];
+      if (typeof A[i] == 'object')
+        this.Copy(A[i], B[i])
+    }
+  },
+  Equel(A, B) {
+    var flag = true;
+    for (var i in A) {
+      if (typeof A[i] == 'object')
+        flag = this.Equel(A[i], B[i]);
+      else if (A[i] !== B[i])
+        flag = false;
+      if (!flag)
+        return flag;
+    }
+    return flag;
+  },
+  DeduplicationStore() {
+    var me = this,
+      current_position = {},
+      current_rotation = {},
+      target_position = {},
+      is_equel;
+    me.Copy(me.el.getAttribute('position'), current_position);
+    me.Copy(me.el.getAttribute('rotation'), current_rotation);
+
+    me.Copy(me.system.position_recording[me._id][0], target_position);
+    is_equel = me.Equel(target_position, current_position);
+    if (!is_equel) {
+      me.system.position_recording[me._id].unshift(current_position);
+      me.system.rotation_recording[me._id].unshift(current_rotation);
+    }
   }
 })
