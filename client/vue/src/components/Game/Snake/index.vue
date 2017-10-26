@@ -8,8 +8,8 @@
 
 			<a-sky color="#ddd"></a-sky>
       <!-- <div id="snake_box"> -->
-        <a-box id="snake" static-body position="0 0 0" color="#000" look-controls wasd-controls queue="ishead:true">
-          <a-camera id="camera" position="0 1 4" look-controls="enabled:false" wasd-controls="enabled:false" user-height="0">
+        <a-box id="snake" static-body position="0 0 0" color="#000" look-controls walk queue="ishead:true">
+          <a-camera id="camera" position="0 0 -.1" look-controls="enabled:false" wasd-controls="enabled:false" user-height="0">
             <a-cursor id="cursor"></a-cursor>
           </a-camera>
         </a-box>
@@ -38,9 +38,10 @@ export default {
   },
   methods: {
     test() {
-      var box = document.querySelector("#box1");
+      var box = document.querySelector("#camera");
       var playerEl = document.querySelector("#snake");
-      console.log(box.components["dynamic-body"]);
+      var q = document.querySelector("a-scene").systems["queue"];
+      console.log(q);
 
       // box.removeAttribute("color");
       playerEl.addEventListener("collide", function(e) {

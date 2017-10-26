@@ -24,7 +24,7 @@ AFRAME.registerComponent('queue', {
     frame: {
       default: 50
     },
-    data: {
+    _id: {
       default: -1
     }
   },
