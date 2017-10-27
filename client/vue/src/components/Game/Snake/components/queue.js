@@ -21,9 +21,6 @@ AFRAME.registerComponent('queue', {
     distance: {
       default: 1.2
     },
-    frame: {
-      default: 50
-    },
     _id: {
       default: -1
     }
@@ -34,6 +31,8 @@ AFRAME.registerComponent('queue', {
       me._id = 0;
     else {
       me._id = me.data._id;
+      me.el.setAttribute('position', me.system.position_recording[me._id - 1][0]);
+      this.el.setAttribute('visible', true)
     }
     // me._id = me.system.position_recording.length;
     var current_position = {},
@@ -50,18 +49,15 @@ AFRAME.registerComponent('queue', {
     if (me.data.ishead)
       return;
 
-    if (me.system.position_recording[me._id - 1].length > me.data.frame) {
-      var target_position = me.system.position_recording[me._id - 1][me.data.frame],
-        last_current_position = me.system.position_recording[me._id - 1][0],
-        target_rotation = me.system.rotation_recording[me._id - 1][me.data.frame];
-      if (me.Distance(last_current_position, target_position)) {
-        me.el.setAttribute('position', target_position);
-        me.el.setAttribute('rotation', target_rotation);
-      }
+    var target_position = me.system.position_recording[me._id - 1][me.system.position_recording[me._id - 1].length - 1],
+      last_current_position = me.system.position_recording[me._id - 1][0],
+      target_rotation = me.system.rotation_recording[me._id - 1][me.system.position_recording[me._id - 1].length - 1];
+    if (me.Distance(last_current_position, target_position)) {
+      me.el.setAttribute('position', target_position);
+      me.el.setAttribute('rotation', target_rotation);
       me.system.position_recording[me._id - 1].pop();
       me.system.rotation_recording[me._id - 1].pop();
     }
-
   },
   Distance(target, current) {
     var flag = false,

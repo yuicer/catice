@@ -6,3 +6,7 @@ require('./scale_click')
 require('./walk')
 //队列跟随组件
 require('./queue')
+//随机生成事物组件
+require('./food')
+//吃东西组件
+require('./eat')
