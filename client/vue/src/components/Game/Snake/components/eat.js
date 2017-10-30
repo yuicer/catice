@@ -15,8 +15,7 @@ AFRAME.registerComponent('eat', {
       scene = document.querySelector('a-scene');
     dom.setAttribute('visible', false);
     dom.setAttribute('static-body', '');
-    let _id = scene.systems['queue'].position_recording.length;
-    dom.setAttribute('queue', '_id:' + _id);
+    dom.setAttribute('queue', '')
     scene.insertBefore(dom, sky);
   },
   Collide() {
@@ -24,12 +23,16 @@ AFRAME.registerComponent('eat', {
       snake = me.el;
     snake.addEventListener('collide', function (e) {
       var dom = e.detail.body.el;
+      console.log(dom.components['food'].feature)
       setTimeout(function () {
-        console.log(dom.components['food'].feature)
-        // dom.components["dynamic-body"].pause();
-        dom.parentNode.removeChild(dom);
-        me.AddSnakeTail();
+        if (dom.parentNode) {
+          dom.parentNode.removeChild(dom);
+          me.AddSnakeTail();
+        }
       }, 0);
     });
-  }
+  },
+  SpeedUp() {
+
+  },
 })

@@ -1,3 +1,6 @@
+/*
+  bug：生成时位置如果相同会互相挤出去
+*/
 var features = [
   'speed',
   'power'

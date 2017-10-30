@@ -12,16 +12,16 @@
           </a-camera>
         </a-box>
       
-			<a-sky id="sky" color="#fff"></a-sky>
+			<a-sky id="sky" color="#ddd"></a-sky>
 
       <!-- 界限空间,暂时没用，不能检测碰撞 -->
 			
-      <!-- <a-plane static-body class="plane" color="#cac9f5" height="150" width="150" rotation="-90 0 0" position="0 -5 0"></a-plane>
-      <a-plane static-body class="plane" color="#cac9f5" height="150" width="150" rotation="90 0 0" position="0 75 0"></a-plane>
-      <a-plane static-body class="plane" color="#cac9f5" height="150" width="150" rotation="0 -90 0" position="75 0 0"></a-plane>
-      <a-plane static-body class="plane" color="#cac9f5" height="150" width="150" rotation="0 90 0" position="-75 0 0"></a-plane>
-      <a-plane static-body class="plane" color="#cac9f5" height="150" width="150" rotation="0 180 0" position="0 0 75"></a-plane>
-      <a-plane static-body class="plane" color="#cac9f5" height="150" width="150" rotation="0 0 0" position="0 0 -75"></a-plane>  -->
+      <a-plane static-body class="plane" color="#cac9f5" height="150" width="150" rotation="-90 0 0" position="0 -5 0"></a-plane>
+      <!-- <a-plane static-body class="plane" color="#cac9f5" height="150" width="150" rotation="90 0 0" position="0 75 0"></a-plane> -->
+      <!-- <a-plane static-body class="plane" color="#cac9f5" height="150" width="150" rotation="0 -90 0" position="75 0 0"></a-plane> -->
+      <!-- <a-plane static-body class="plane" color="#cac9f5" height="150" width="150" rotation="0 90 0" position="-75 0 0"></a-plane> -->
+      <!-- <a-plane static-body class="plane" color="#cac9f5" height="150" width="150" rotation="0 180 0" position="0 0 75"></a-plane> -->
+      <!-- <a-plane static-body class="plane" color="#cac9f5" height="150" width="150" rotation="0 0 0" position="0 0 -75"></a-plane>  -->
      
 		</a-scene>
 	</div>
