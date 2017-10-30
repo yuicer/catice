@@ -6,8 +6,8 @@ AFRAME.registerSystem('queue', {
   },
   add_queue() {
     var me = this;
-    me.position_recording.unshift([])
-    me.rotation_recording.unshift([])
+    me.position_recording.push([]);
+    me.rotation_recording.push([]);
   },
 })
 AFRAME.registerComponent('queue', {
@@ -18,41 +18,47 @@ AFRAME.registerComponent('queue', {
     distance: {
       default: 1.2
     },
+    frame: {
+      default: 40
+    }
   },
   init() {
-    var me = this;
-    //设置_id
+    var me = this,
+      current_position = {},
+      current_rotation = {};
+
     me._id = me.system.position_recording.length;
-    //设置尾巴们的初始位置并可见
-
-    //头
+    me.system.add_queue();
+    //设置初始位置
     if (me.data.ishead) {
-
-    }
-    //尾巴
-    else {
+      me.Copy(me.el.getAttribute('position'), current_position);
+      me.Copy(me.el.getAttribute('rotation'), current_rotation);
+    } else {
+      current_position = me.system.position_recording[me._id - 1][0];
+      current_rotation = me.system.rotation_recording[me._id - 1][0];
+      me.el.setAttribute('position', current_position);
+      me.el.setAttribute('rotation', current_rotation);
       this.el.setAttribute('visible', true)
     }
-    //队列添加一个新数组，且数组第一个元素为初始位置
-    me.system.add_queue();
-    //存储位置供后一个尾巴使用
+    me.system.position_recording[me._id].unshift(current_position);
+    me.system.rotation_recording[me._id].unshift(current_rotation);
   },
   tick() {
     var me = this;
-    //头不需要设位置，只存位置
-    me.DeduplicationStore();
+
     if (me.data.ishead) {
+      me.DeduplicationStore();
       return;
     }
-    let length = me.system.position_recording[me._id - 1].length - 1,
-      target_position = me.system.position_recording[me._id - 1][length],
-      last_current_position = me.system.position_recording[me._id - 1][0],
-      target_rotation = me.system.rotation_recording[me._id - 1][length];
-    if (me.Distance(last_current_position, target_position)) {
-      me.el.setAttribute('position', target_position);
-      me.el.setAttribute('rotation', target_rotation);
-      me.system.position_recording[me._id - 1].pop();
-      me.system.rotation_recording[me._id - 1].pop();
+    if (me.system.position_recording[me._id - 1].length > me.data.frame) {
+      var target_position = me.system.position_recording[me._id - 1][me.data.frame],
+        last_current_position = me.system.position_recording[me._id - 1][0],
+        target_rotation = me.system.rotation_recording[me._id - 1][me.data.frame];
+      if (me.Distance(last_current_position, target_position)) {
+        me.el.setAttribute('position', target_position);
+        me.el.setAttribute('rotation', target_rotation);
+        me.DeduplicationStore();
+      }
     }
   },
   Distance(target, current) {
@@ -72,31 +78,17 @@ AFRAME.registerComponent('queue', {
       last_position = {},
       is_equel;
 
-    //第一次初始化位置并记录
-    if (!me.system.position_recording[me._id].length) {
-      if (me.data.ishead) {
-        me.Copy(me.el.getAttribute('position'), current_position);
-        me.Copy(me.el.getAttribute('rotation'), current_rotation);
-      } else {
-        current_position = me.system.position_recording[me._id - 1][0];
-        current_rotation = me.system.rotation_recording[me._id - 1][0];
-        me.el.setAttribute('position', current_position);
-        me.el.setAttribute('rotation', current_rotation);
-      }
+    me.Copy(me.el.getAttribute('position'), current_position);
+    me.Copy(me.el.getAttribute('rotation'), current_rotation);
+
+    me.Copy(me.system.position_recording[me._id][0], last_position);
+    is_equel = me.Equel(last_position, current_position);
+    if (!is_equel) {
       me.system.position_recording[me._id].unshift(current_position);
       me.system.rotation_recording[me._id].unshift(current_rotation);
     }
-    //后几次
-    else {
-      me.Copy(me.el.getAttribute('position'), current_position);
-      me.Copy(me.el.getAttribute('rotation'), current_rotation);
-
-      me.Copy(me.system.position_recording[me._id][0], last_position);
-      is_equel = me.Equel(last_position, current_position);
-      if (!is_equel) {
-        me.system.position_recording[me._id].unshift(current_position);
-        me.system.rotation_recording[me._id].unshift(current_rotation);
-      }
+    if (me.system.position_recording[me._id].length > me.data.frame + 1) {
+      me.system.position_recording[me._id].pop();
     }
   },
   Copy(A, B) {
