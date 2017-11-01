@@ -6,7 +6,7 @@
 				<img id="advertisement" src="~assets/logo.png">
 			</a-assets>
       <!-- 贪吃蛇本体 -->
-        <a-box id="snake" eat static-body look-controls walk queue="ishead:true">
+        <a-box id="snake" eat static-body look-controls move queue="ishead:true">
           <a-camera id="camera" position="0 0 -.1" look-controls="enabled:false" wasd-controls="enabled:false" user-height="0">
             <a-cursor id="cursor"></a-cursor>
           </a-camera>

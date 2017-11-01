@@ -29,10 +29,8 @@ AFRAME.registerComponent('food', {
     me.el.setAttribute("dynamic-body", "");
     me.el.setAttribute("color", color[me.feature]);
   },
-  GetFootFeature() {
-    var me = this,
-      flag = Math.random() > .5 ? 0 : 1;
-    me.feature = features[flag];
+  remove() {
+    //移除之后销毁位置的存储
   },
   GetFoodPosition() {
     var me = this,
@@ -41,5 +39,13 @@ AFRAME.registerComponent('food', {
     position.y = Math.round(Math.random() * me.data.box_height) - me.data.box_height / 2;
     position.z = Math.round(Math.random() * me.data.box_depth) - me.data.box_depth / 2;
     return position;
+  },
+  DetactDeduplication() {
+    //检测是否有重复的位置
+  },
+  GetFootFeature() {
+    var me = this,
+      flag = Math.random() > .5 ? 0 : 1;
+    me.feature = features[flag];
   },
 })

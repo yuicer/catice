@@ -3,7 +3,7 @@ require('./float')
 //点击变大
 require('./scale_click')
 //移动组件
-require('./walk')
+require('./move')
 //队列跟随组件
 require('./queue')
 //随机生成事物组件

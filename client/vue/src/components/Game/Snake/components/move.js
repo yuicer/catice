@@ -14,7 +14,7 @@ function isEmptyObject(keys) {
   }
   return true;
 }
-AFRAME.registerComponent('walk', {
+AFRAME.registerComponent('move', {
   schema: {
     speed: {
       default: .5

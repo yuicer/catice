@@ -3,11 +3,13 @@ AFRAME.registerSystem('queue', {
     var me = this;
     me.position_recording = [];
     me.rotation_recording = [];
+    me.entities = [];
   },
-  add_queue() {
+  add_queue(el) {
     var me = this;
     me.position_recording.push([]);
     me.rotation_recording.push([]);
+    me.entities.push(el);
   },
 })
 AFRAME.registerComponent('queue', {
@@ -19,16 +21,16 @@ AFRAME.registerComponent('queue', {
       default: 1.2
     },
     frame: {
-      default: 40
+      default: 50
     }
   },
   init() {
     var me = this,
       current_position = {},
       current_rotation = {};
-
+    //设置id
     me._id = me.system.position_recording.length;
-    me.system.add_queue();
+    me.system.add_queue(me.el);
     //设置初始位置
     if (me.data.ishead) {
       me.Copy(me.el.getAttribute('position'), current_position);
