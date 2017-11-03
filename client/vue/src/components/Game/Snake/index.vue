@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<a-scene physics="debug:true; gravity:0" id="scene">
+		<a-scene physics="debug:false; gravity:0" id="scene">
 			<!--		<a-light type="ambient"  color="#445451"></a-light>-->
 			<a-assets>
 				<img id="advertisement" src="~assets/logo.png">

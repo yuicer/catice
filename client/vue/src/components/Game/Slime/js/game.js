@@ -13,6 +13,8 @@ var game = {
   init: function () {
     var me = game;
     me.canvas = document.getElementById("canvas");
+    me.canvas.height = document.documentElement.clientHeight;
+    me.canvas.width = document.documentElement.clientWidth;
     me.ctx = me.canvas.getContext("2d");
     me.timer = 0;
     me.gameover = false;
@@ -109,9 +111,7 @@ var game = {
       }
       setTimeout(b, 1000)
     }
-
     me.frame++;
   },
-
 }
 export default game;

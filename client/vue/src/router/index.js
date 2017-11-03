@@ -12,7 +12,7 @@ Vue.use(Router)
 export default new Router({
   routes: [{
       path: '/',
-      component: Login
+      component: Game
     },
     {
       path: '/login',
@@ -21,16 +21,14 @@ export default new Router({
     {
       path: '/game',
       component: Game,
-      children: [{
-        path: '',
-        component: Game
-      }, {
-        path: 'snake',
-        component: Snake
-      }, {
-        path: 'slime',
-        component: Slime
-      }]
+    },
+    {
+      path: '/game/snake',
+      component: Snake
+    },
+    {
+      path: '/game/slime',
+      component: Slime
     },
     {
       path: '*',
