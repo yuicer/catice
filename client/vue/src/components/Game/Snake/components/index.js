@@ -1,7 +1,7 @@
 //悬浮动画
-require('./float')
+// require('./float')
 //点击变大
-require('./scale_click')
+// require('./scale_click')
 //移动组件
 require('./move')
 //队列跟随组件
@@ -10,3 +10,5 @@ require('./queue')
 require('./food')
 //吃东西组件
 require('./eat')
+//生成食物组件
+require('./produce_food')

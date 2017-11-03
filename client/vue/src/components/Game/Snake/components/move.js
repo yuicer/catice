@@ -116,7 +116,7 @@ AFRAME.registerComponent('move', {
     if (delta > MAX_DELTA) {
       velocity[adAxis] = 0;
       velocity[wsAxis] = 0;
-      velocity.z = 0;
+      // velocity.z = 0;
       return;
     }
 

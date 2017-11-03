@@ -5,6 +5,7 @@ const Not_found = resolve => require(['components/Not_found'], resolve)
 const Login = resolve => require(['components/Login'], resolve)
 const Game = resolve => require(['components/Game'], resolve)
 const Snake = resolve => require(['components/Game/Snake'], resolve)
+const Slime = resolve => require(['components/Game/Slime'], resolve)
 
 Vue.use(Router)
 
@@ -26,6 +27,9 @@ export default new Router({
       }, {
         path: 'snake',
         component: Snake
+      }, {
+        path: 'slime',
+        component: Slime
       }]
     },
     {

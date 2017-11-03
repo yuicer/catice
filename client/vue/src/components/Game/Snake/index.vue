@@ -11,8 +11,7 @@
             <a-cursor id="cursor"></a-cursor>
           </a-camera>
         </a-box>
-      
-			<a-sky id="sky" color="#ddd"></a-sky>
+			<a-sky id="sky" color="#ddd" produce_food></a-sky>
 
       <!-- 界限空间,暂时没用，不能检测碰撞 -->
 			
@@ -37,21 +36,8 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    var me = this;
-    me.GenerateFood();
-  },
-  methods: {
-    GenerateFood() {
-      var me = this,
-        scene = document.querySelector("a-scene");
-      setInterval(() => {
-        var dom = document.createElement("a-box");
-        dom.setAttribute("food", "");
-        scene.appendChild(dom);
-      }, 3000);
-    }
-  }
+  mounted() {},
+  methods: {}
 };
 </script>
 

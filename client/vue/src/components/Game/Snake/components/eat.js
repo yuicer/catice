@@ -22,7 +22,6 @@ AFRAME.registerComponent('eat', {
       sky = document.querySelector('#sky'),
       scene = document.querySelector('a-scene');
     dom.setAttribute('visible', false);
-    dom.setAttribute('static-body', '');
     dom.setAttribute('queue', '');
     dom.setAttribute('scale', me.scale_string);
     scene.insertBefore(dom, sky);
@@ -33,13 +32,15 @@ AFRAME.registerComponent('eat', {
     snake.addEventListener('collide', function (e) {
       var dom = e.detail.body.el,
         feature = dom.components['food'].feature;
-      setTimeout(() => {
-        if (dom.parentNode) {
-          dom.parentNode.removeChild(dom);
-          me.GetAbility(feature);
-          me.AddSnakeTail();
-        }
-      }, 0);
+      if (feature) {
+        setTimeout(() => {
+          if (dom.parentNode) {
+            dom.parentNode.removeChild(dom);
+            me.GetAbility(feature);
+            me.AddSnakeTail();
+          }
+        }, 0);
+      }
     });
   },
   GetAbility(feature) {
@@ -63,7 +64,8 @@ AFRAME.registerComponent('eat', {
       entities = scene.systems['queue'].entities;
     me.scale += .1;
     me.scale_string = me.scale + ' ' + me.scale + ' ' + me.scale;
-    for (var i in entities)
-      entities[i].setAttribute('scale', me.scale_string);
+    for (var i in entities) {
+      entities[i].setAttribute('animation__scale', 'property: scale;  dur: 400; to:' + me.scale_string);
+    }
   }
 })
