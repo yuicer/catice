@@ -3,11 +3,8 @@
 	<div id="wrapper">
 		<h1>Catice</h1>
 		<h2>ようこそ、わが楽園！</h2>
-		<!-- <p>
-      <router-link to="login">login</router-link>
-		</p> -->
 		<p>
-      <router-link to="game/snake">贪吃蛇</router-link>
+      <router-link :to="'/game/snake'">贪吃蛇</router-link>
 		</p>
     <h2>pc上鼠标按住可拖动视角，wasd辅助移动</h2>
     <p>
@@ -20,7 +17,6 @@
 <script>
 export default {
   mounted() {
-    console.log(this.$router);
     document.addEventListener("touchmove", function(e) {
       e.preventDefault();
     });

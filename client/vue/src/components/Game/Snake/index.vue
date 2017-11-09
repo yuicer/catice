@@ -3,7 +3,6 @@
 		<a-scene physics="debug:false; gravity:0" id="scene">
 			<!--		<a-light type="ambient"  color="#445451"></a-light>-->
 			<a-assets>
-				<img id="advertisement" src="~assets/logo.png">
 			</a-assets>
       <!-- 贪吃蛇本体 -->
         <a-box id="snake" eat static-body look-controls move queue="ishead:true">
