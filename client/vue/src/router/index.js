@@ -1,26 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+Vue.use(Router)
 
+const Main = resolve => require(['components/MainPage.vue'], resolve)
 const Not_found = resolve => require(['components/Not_found'], resolve)
-const Login = resolve => require(['components/Login'], resolve)
-const Game = resolve => require(['components/Game'], resolve)
+const Login = resolve => require(['components/Chat/Login'], resolve)
+const Chat = resolve => require(['components/Chat'], resolve)
 const Snake = resolve => require(['components/Game/Snake'], resolve)
 const Slime = resolve => require(['components/Game/Slime'], resolve)
 
-Vue.use(Router)
 
 export default new Router({
   routes: [{
       path: '/',
-      component: Game
+      component: Main
     },
     {
-      path: '/login',
+      path: '/chat/login',
       component: Login
     },
     {
-      path: '/game',
-      component: Game,
+      path: '/Chat',
+      component: Chat
     },
     {
       path: '/game/snake',

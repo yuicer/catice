@@ -1,0 +1,28 @@
+{
+  "name": "koa_server",
+  "version": "1.0.0",
+  "description": "interest driving",
+  "main": "app.js",
+  "dependencies": {
+    "axios": "^0.17.0",
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.3.0",
+    "koa-static": "^4.0.2",
+    "mongoose": "^4.13.5",
+    "socket.io": "^2.0.4"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuicer/catice.git"
+  },
+  "author": "yuicer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuicer/catice/issues"
+  },
+  "homepage": "https://github.com/yuicer/catice#readme"
+}
