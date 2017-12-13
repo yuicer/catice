@@ -1,12 +1,14 @@
 const io = require('socket.io-client')
-var socket = io('http://127.0.0.1:3000')
+var socket = io('http://36.189.253.23:3000')
 socket.on('chat', function (msg) {
-  console.log(msg)
+  // console.log(msg)
   msg.time = new Date(msg.time).toLocaleTimeString()
   chat.conversation.push(msg)
-  // if (chat.vm.nameColor == 'black') {
-  //   chat.vm.nameColor = msg.color
-  // }
+  chat.vm.msgScroll()
+})
+socket.on('usernumber', (num) => {
+  chat.vm.usernumber = num
+  console.log(num)
 })
 const chat = {
   vm(vm) {

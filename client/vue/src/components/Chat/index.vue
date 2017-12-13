@@ -1,14 +1,17 @@
 <template>
   <div id="bg" :style="bg">
     <div id="login" v-if="!islogin">
-      <input type="text" placeholder="login with your name" @keyup.enter="login" v-model.lazy="name">
+      <input type="text" placeholder="login with your name" @keyup.enter="login" v-model.lazy="myname">
     </div>
     <div id="room" v-else>
       <div id="left"></div>
       <div id="right">
-
         <div id="head">
-          聊天室
+          <div id="roomname">聊天室</div>
+          <div id="usernumber">
+            <i class="fas fa-user"></i>
+            <span>{{usernumber}}</span>
+          </div>
         </div>
         <div id="body">
 
@@ -20,23 +23,25 @@
               <div class="word">{{item.msg}}</div>
             </div>
           </div>
+
         </div>
         <div id="foot">
-          <div contenteditable="true" @change="submit" class="editor">
-            <p></p>
-          </div>
-          <!-- <input type="text" @change="submit" v-model="msg"> -->
+          <div contenteditable="true" tabindex="0" spellcheck="false" @keydown.enter.exact.prevent="submit($event)" class="editor"></div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+  require('static/fontawesome-all.min.js')
   import chat from './chat.js'
   import color from './color.js'
   export default {
     data() {
       return {
+        chatBodyHeight: '',
+        chatBodyNoScrollHeight: 150,
+        usernumber: 0,
         msg: '',
         conversation: chat.conversation,
         bg: {
@@ -44,7 +49,7 @@
           backgroundImage: 'url(require("assets/texture.png"))'
         },
         nameColor: 'black',
-        name: '',
+        myname: '',
         islogin: false,
       }
     },
@@ -53,18 +58,35 @@
     },
     methods: {
       test() {
-        var me = this
-        setInterval(() => {
-          console.log(me.nameColor, chat.nameColor)
-        }, 1000)
+
       },
       login() {
-        chat.addUser(this.name)
-        this.islogin = true
+        var me = this
+        chat.addUser(me.myname)
+        me.islogin = true
+        setTimeout(() => {
+          me.chatBodyHeight = window.getComputedStyle(document.querySelector('#body')).height.slice(0, -2)
+        }, 0);
       },
-      submit() {
-        chat.send(this.msg)
-        this.msg = ''
+      submit(e) {
+        e.preventDefault()
+        var msg = e.target.innerText
+        chat.send(msg)
+        e.target.innerText = ''
+      },
+      msgScroll() {
+        var me = this
+        var dom = document.querySelector('#body')
+        if (dom.scrollHeight - dom.scrollTop - me.chatBodyHeight - me.chatBodyNoScrollHeight < 0) {
+          var speed = dom.scrollHeight / 30
+          var timer = setInterval(() => {
+            var oldTop = dom.scrollTop
+            dom.scrollTop += speed
+            if (dom.scrollTop == oldTop) {
+              clearInterval(timer)
+            }
+          }, 16)
+        }
       }
     }
 
@@ -72,15 +94,30 @@
 </script>
 <style scoped>
   .editor {
-    position: absolute;
-    bottom: 0;
-    height: 40px;
+    padding: 5px 10px;
+    line-height: 1.5;
     cursor: text;
+    outline: 0;
+    max-height: 200px;
+    overflow-y: auto;
     width: 80%;
-    left: 10%;
+    margin: 0 auto;
+    border-radius: 3px;
     border: 2px solid rgba(160, 160, 162, 0.7);
+    background: #fff;
+    font-size: 16px;
+    -webkit-user-modify: read-write-plaintext-only;
+    position: absolute;
+    left: 7%;
+    bottom: 0;
   }
-
+  #foot {
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+    position: relative;
+    /* height: ; */
+  }
   .info {
     color: #aaa;
     font-size: 14px;
@@ -102,15 +139,27 @@
     color: #999;
   }
   .msg {
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+    animation: msg 0.3s;
     transition: all 0.3s;
     margin: 20px 0;
   }
 
   #body {
     overflow-x: hidden;
-    overflow-y: scroll;
-    max-height: 800px;
-    height: calc(100% - 50px);
+    overflow-y: auto;
+    height: calc(100% - 90px);
+  }
+  #roomname {
+    float: left;
+    font-weight: bold;
+  }
+  #usernumber {
+    float: right;
+    color: #717274;
+    font-size: 16px;
   }
   #head {
     height: 50px;
@@ -119,6 +168,7 @@
   }
   #right {
     height: 100%;
+    position: relative;
   }
   #room {
     border-radius: 3px;
@@ -161,6 +211,7 @@
     border: none;
     letter-spacing: 3px;
     padding-left: 20px;
+    outline: 0;
   }
   #bg {
     height: 100%;
@@ -168,20 +219,17 @@
   ::-webkit-scrollbar {
     width: 8px;
   }
-  ::-webkit-scrollbar-corner {
-    background: #fff;
-  }
-  ::-webkit-scrollbar-track {
-    background: #f3f3f3;
-    box-shadow: inset 0 -4px 0 0, inset 0 4px 0 0;
-    color: #fff;
-    border-radius: 3px;
-  }
   ::-webkit-scrollbar-thumb {
     background: #d9d9de;
-    box-shadow: inset 0 -2px, inset 0 -3px, inset 0 2px, inset 0 3px;
     min-height: 36px;
     border-radius: 3px;
-    color: #fff;
+  }
+  @keyframes msg {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 </style>

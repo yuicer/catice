@@ -2,17 +2,22 @@ const color = require('./color.js')
 const room = {
   name: '聊天室'
 }
+var usernumber = 0
+
+
 module.exports = function (server) {
   const io = require('socket.io')(server)
 
   io.on('connection', socket => {
+
     socket.on('disconnect', () => {
       var msg = {
-        type: 'info',
-        msg: socket.userName + ' 离开了' + room.name
-      }
+          type: 'info',
+          msg: socket.userName + ' 离开了' + room.name
+        }
+        --usernumber
+      io.emit('usernumber', usernumber)
       socket.broadcast.emit('chat', msg)
-      console.log('disconnet')
     })
 
     socket.on('chat', msg => {
@@ -30,9 +35,11 @@ module.exports = function (server) {
       socket.userName = user
       socket.userColor = color.getcolor()
       var msg = {
-        type: 'info',
-        msg: user + ' 进入了' + room.name
-      }
+          type: 'info',
+          msg: user + ' 进入了' + room.name
+        }
+        ++usernumber
+      io.emit('usernumber', usernumber)
       socket.broadcast.emit('chat', msg)
     })
 
