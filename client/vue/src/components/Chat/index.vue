@@ -1,7 +1,7 @@
 <template>
   <div id="bg" :style="bg">
     <div id="login" v-if="!islogin">
-      <input type="text" placeholder="login with your name" @keyup.enter="login" v-model.lazy="myname">
+      <input type="text" spellcheck="false" placeholder="login with your name" @keyup.enter="login" v-model.lazy="myname">
     </div>
     <div id="room" v-else>
       <div id="left"></div>
