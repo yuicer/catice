@@ -7,7 +7,10 @@
       <div id="left"></div>
       <div id="right">
         <div id="head">
-          <div id="roomname">聊天室</div>
+          <div id="roomname">
+            <i class="fas fa-home"></i>
+            <span>聊天室</span>
+          </div>
           <div id="usernumber">
             <i class="fas fa-user"></i>
             <span>{{usernumber}}</span>
@@ -40,7 +43,7 @@
     data() {
       return {
         chatBodyHeight: '',
-        chatBodyNoScrollHeight: 150,
+        chatBodyNoScrollHeight: 200,
         usernumber: 0,
         msg: '',
         conversation: chat.conversation,
@@ -62,15 +65,19 @@
       },
       login() {
         var me = this
-        chat.addUser(me.myname)
         me.islogin = true
+        chat.init()
+        chat.addUser(me.myname)
         setTimeout(() => {
           me.chatBodyHeight = window.getComputedStyle(document.querySelector('#body')).height.slice(0, -2)
-        }, 0);
+        }, 0)
       },
       submit(e) {
         e.preventDefault()
         var msg = e.target.innerText
+        if (msg == '') {
+          return
+        }
         chat.send(msg)
         e.target.innerText = ''
       },
@@ -78,7 +85,7 @@
         var me = this
         var dom = document.querySelector('#body')
         if (dom.scrollHeight - dom.scrollTop - me.chatBodyHeight - me.chatBodyNoScrollHeight < 0) {
-          var speed = dom.scrollHeight / 30
+          var speed = 15
           var timer = setInterval(() => {
             var oldTop = dom.scrollTop
             dom.scrollTop += speed

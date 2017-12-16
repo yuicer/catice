@@ -3,14 +3,15 @@ const room = {
   name: '聊天室'
 }
 var usernumber = 0
-var userIsAdd = false
 
 
 module.exports = function (server) {
   const io = require('socket.io')(server)
 
   io.on('connection', socket => {
+    var userIsAdd = false
     // 聊天信息
+    // console.log('connect')
     socket.on('chat', msg => {
       var msg = {
         type: 'chat',
@@ -25,8 +26,9 @@ module.exports = function (server) {
     // 新增用户
     socket.on('add user', user => {
       if (userIsAdd)
-        return ++usernumber
-      userIsAdd = true
+        return
+      userIsAdd = true;
+      ++usernumber
       socket.userName = user
       socket.userColor = color.getcolor()
       var msg = {
@@ -39,7 +41,8 @@ module.exports = function (server) {
 
     // 断开连接
     socket.on('disconnect', () => {
-      if (userIsAdd) {
+      // console.log('disconnect')
+      if (userIsAdd) {;
         --usernumber
         var msg = {
           type: 'info',
