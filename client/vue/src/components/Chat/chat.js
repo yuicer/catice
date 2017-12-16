@@ -1,10 +1,10 @@
 const io = require('socket.io-client')
-// var socket = io('http://36.189.253.23:3000')
 
 const chat = {
   init() {
     var me = this
-    me.socket = io('http://127.0.0.1:3000')
+    me.socket = io('http://36.189.253.23:3000')
+    // me.socket = io('http://127.0.0.1:3000')
     me.getUserNumber()
     me.receive()
   },
