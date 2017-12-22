@@ -30,7 +30,7 @@ const chat = {
     this.socket.on('usernumber', (num) => {
       chat.vm.usernumber = num
     })
-  },
+  }
 }
 
 export default chat

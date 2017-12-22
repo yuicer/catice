@@ -36,9 +36,9 @@
   </div>
 </template>
 <script>
-  require('static/fontawesome-all.min.js')
   import chat from './chat.js'
   import color from './color.js'
+  require('static/fontawesome-all.min.js')
   export default {
     data() {
       return {
@@ -49,11 +49,11 @@
         conversation: chat.conversation,
         bg: {
           backgroundColor: color.bgcolor.rgb,
-          backgroundImage: 'url(require("assets/texture.png"))'
+          backgroundImage: 'url(' + require('assets/texture.png') + ')'
         },
         nameColor: 'black',
         myname: '',
-        islogin: false,
+        islogin: false
       }
     },
     mounted() {

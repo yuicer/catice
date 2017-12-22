@@ -12,16 +12,16 @@ require('./chat')(server)
 
 
 app
-    .use(serverStatic(path.join(__dirname, 'static')))
-    .use(router.routes())
-    .use(router.allowedMethods())
+  .use(serverStatic(path.join(__dirname, 'static')))
+  .use(router.routes())
+  .use(router.allowedMethods())
 
-    // err handler
-    .use(async ctx => {
-        if (404 == ctx.status) {
-            ctx.type = 'text/html'
-            ctx.body = fs.createReadStream(path.join(__dirname, 'pages/error.html'))
-        }
-    })
+  // err handler
+  .use(async ctx => {
+    if (404 == ctx.status) {
+      ctx.type = 'text/html'
+      ctx.body = fs.createReadStream(path.join(__dirname, 'pages/error.html'))
+    }
+  })
 
 server.listen(3000)

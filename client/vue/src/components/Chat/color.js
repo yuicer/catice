@@ -23,6 +23,4 @@ const color = {
 var bgnumber = Math.floor(Math.random() * color.bgcolors.length)
 color.bgcolor.rgb = color.bgcolors[bgnumber].rgb
 
-
-
 export default color
