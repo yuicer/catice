@@ -67,7 +67,7 @@
         var me = this
         me.islogin = true
         chat.init()
-        chat.addUser(me.myname)
+        chat.AddUser(me.myname)
         setTimeout(() => {
           me.chatBodyHeight = window.getComputedStyle(document.querySelector('#body')).height.slice(0, -2)
         }, 0)
@@ -78,7 +78,7 @@
         if (msg == '') {
           return
         }
-        chat.send(msg)
+        chat.Send(msg)
         e.target.innerText = ''
       },
       msgScroll() {

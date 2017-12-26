@@ -3,19 +3,20 @@ const io = require('socket.io-client')
 const chat = {
   init() {
     var me = this
-    me.socket = io('http://36.189.253.23:3000')
-    // me.socket = io('http://127.0.0.1:3000')
-    me.getUserNumber()
-    me.receive()
+    // me.socket = io('http://36.189.253.23:3000')
+    me.socket = io('http://127.0.0.1:3000')
+    me.GetUserNumber()
+    me.Receive()
+    me.Reconnect()
   },
   vm(vm) {
     this.vm = vm
   },
   conversation: [],
-  send(msg) {
+  Send(msg) {
     this.socket.emit('chat', msg)
   },
-  receive() {
+  Receive() {
     this.socket.on('chat', function (msg) {
       // console.log(msg)
       msg.time = new Date(msg.time).toLocaleTimeString()
@@ -23,12 +24,19 @@ const chat = {
       chat.vm.msgScroll()
     })
   },
-  addUser(user) {
-    this.socket.emit('add user', user)
+  AddUser(username) {
+    this.socket.emit('add user', username)
+    this.username = username
   },
-  getUserNumber() {
+  GetUserNumber() {
     this.socket.on('usernumber', (num) => {
       chat.vm.usernumber = num
+    })
+  },
+  Reconnect() {
+    this.socket.on('reconnect', () => {
+      this.AddUser(this.username)
+      console.log(1)
     })
   }
 }
