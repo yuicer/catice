@@ -18,9 +18,8 @@ app
 
   // err handler
   .use(async ctx => {
-    if (404 == ctx.status) {
-      ctx.type = 'text/html'
-      ctx.body = fs.createReadStream(path.join(__dirname, 'pages/error.html'))
+    if (200 != ctx.status) {
+      ctx.body = ctx.status
     }
   })
 

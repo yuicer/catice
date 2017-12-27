@@ -1,7 +1,7 @@
 <template>
   <div id="bg" :style="bg">
     <div id="login" v-if="!islogin">
-      <input type="text" spellcheck="false" placeholder="login with your name" @keyup.enter="login" v-model.lazy="myname">
+      <input type="text" spellcheck="false" placeholder="login with your name" @keyup.enter="login" v-model.lazy="userInfo.name">
     </div>
     <div id="room" v-else>
       <div id="left"></div>
@@ -21,7 +21,7 @@
           <div class="msg" v-for="(item,index) in conversation" :key="index">
             <div v-if="item.type==='info'" class="info">{{item.msg}}</div>
             <div v-else>
-              <div class="name" :style="{color:item.color}">{{item.name}}</div>
+              <div class="name" :style="{color:item.userInfo.color}">{{item.userInfo.name}}</div>
               <div class="time">{{item.time}}</div>
               <div class="word">{{item.msg}}</div>
             </div>
@@ -48,11 +48,13 @@
         msg: '',
         conversation: chat.conversation,
         bg: {
-          backgroundColor: color.bgcolor.rgb,
+          backgroundColor: color.bgcolor,
           backgroundImage: 'url(' + require('assets/texture.png') + ')'
         },
-        nameColor: 'black',
-        myname: '',
+        userInfo: {
+          name: '',
+          color: color.namecolor
+        },
         islogin: false
       }
     },
@@ -60,14 +62,11 @@
       chat.vm(this)
     },
     methods: {
-      test() {
-
-      },
       login() {
         var me = this
         me.islogin = true
         chat.init()
-        chat.AddUser(me.myname)
+        chat.AddUser(me.userInfo)
         setTimeout(() => {
           me.chatBodyHeight = window.getComputedStyle(document.querySelector('#body')).height.slice(0, -2)
         }, 0)
@@ -75,6 +74,7 @@
       submit(e) {
         e.preventDefault()
         var msg = e.target.innerText
+
         if (msg == '') {
           return
         }

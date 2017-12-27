@@ -1,4 +1,3 @@
-const color = require('./color.js')
 const room = {
   name: '聊天室'
 }
@@ -15,25 +14,24 @@ module.exports = function (server) {
     socket.on('chat', msg => {
       var msg = {
         type: 'chat',
-        name: socket.userName,
+        userInfo: socket.userInfo,
         msg: msg,
-        color: socket.userColor,
         time: Date.now()
       }
       io.emit('chat', msg)
     })
 
     // 新增用户
-    socket.on('add user', user => {
+    socket.on('add user', userInfo => {
       if (userIsAdd)
         return
+
       userIsAdd = true;
       ++usernumber
-      socket.userName = user
-      socket.userColor = color.getcolor()
+      socket.userInfo = userInfo
       var msg = {
         type: 'info',
-        msg: user + ' 进入了' + room.name
+        msg: userInfo.name + ' 进入了' + room.name
       }
       io.emit('usernumber', usernumber)
       socket.broadcast.emit('chat', msg)
@@ -46,7 +44,7 @@ module.exports = function (server) {
         --usernumber
         var msg = {
           type: 'info',
-          msg: socket.userName + ' 离开了' + room.name
+          msg: socket.userInfo.name + ' 离开了' + room.name
         }
         io.emit('usernumber', usernumber)
         socket.broadcast.emit('chat', msg)
