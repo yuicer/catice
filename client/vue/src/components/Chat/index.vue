@@ -38,7 +38,6 @@
 <script>
   import chat from './chat.js'
   import color from './color.js'
-  require('static/fontawesome-all.min.js')
   export default {
     data() {
       return {
@@ -78,21 +77,16 @@
         if (msg == '') {
           return
         }
-        chat.Send(msg)
+        chat.Send(msg, this.userInfo)
         e.target.innerText = ''
       },
       msgScroll() {
         var me = this
         var dom = document.querySelector('#body')
         if (dom.scrollHeight - dom.scrollTop - me.chatBodyHeight - me.chatBodyNoScrollHeight < 0) {
-          var speed = 15
-          var timer = setInterval(() => {
-            var oldTop = dom.scrollTop
-            dom.scrollTop += speed
-            if (dom.scrollTop == oldTop) {
-              clearInterval(timer)
-            }
-          }, 16)
+          setTimeout(() => {
+            dom.scrollTop += 1000
+          }, 0)
         }
       }
     }
@@ -128,6 +122,7 @@
   .info {
     color: #aaa;
     font-size: 14px;
+    margin-left: 30px;
   }
   .word {
     margin-top: 5px;
@@ -142,15 +137,13 @@
     font-weight: bold;
   }
   .time {
-    font-size: 15px;
+    font-size: 13px;
     color: #999;
   }
   .msg {
     white-space: pre-wrap;
     word-break: break-all;
     word-wrap: break-word;
-    animation: msg 0.3s;
-    transition: all 0.3s;
     margin: 20px 0;
   }
 
@@ -178,10 +171,11 @@
     position: relative;
   }
   #room {
-    border-radius: 3px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     margin: 0 auto;
     position: relative;
-    top: 2%;
+    bottom: -4%;
     height: 96%;
     max-width: 900px;
     box-sizing: border-box;
@@ -230,13 +224,5 @@
     background: #d9d9de;
     min-height: 36px;
     border-radius: 3px;
-  }
-  @keyframes msg {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
   }
 </style>

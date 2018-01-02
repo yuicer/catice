@@ -3,21 +3,19 @@ const room = {
 }
 var usernumber = 0
 
-
 module.exports = function (server) {
   const io = require('socket.io')(server)
 
   io.on('connection', socket => {
     var userIsAdd = false
-    // 聊天信息
-    // console.log('connect')
-    socket.on('chat', msg => {
+    socket.on('chat', (msg, userInfo) => {
       var msg = {
         type: 'chat',
-        userInfo: socket.userInfo,
+        userInfo: userInfo,
         msg: msg,
         time: Date.now()
       }
+      socket.userInfo = userInfo
       io.emit('chat', msg)
     })
 
@@ -39,7 +37,6 @@ module.exports = function (server) {
 
     // 断开连接
     socket.on('disconnect', () => {
-      // console.log('disconnect')
       if (userIsAdd) {;
         --usernumber
         var msg = {

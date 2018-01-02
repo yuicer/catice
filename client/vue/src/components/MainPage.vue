@@ -2,21 +2,24 @@
   <div id="box" :style="bg">
     <div id="wrapper">
       <h1>Catice</h1>
-      <h2>
-        <router-link to="/chat">聊天室</router-link>
+      <h2 @click="loading(0)">
+        <router-link to="chat">聊天室</router-link>
+        <i v-if="isload[0]" class="loading fas fa-spinner fa-spin"></i>
       </h2>
       <h2>游戏厅</h2>
-      <h3>
+      <h3 @click="loading(1)">
         <router-link to="game/slime">打败史莱姆</router-link>
+        <i v-if="isload[1]" class="loading fas fa-spinner fa-spin"></i>
       </h3>
-      <h3>
+      <h3 @click="loading(2)">
         <router-link to="game/snake">贪吃蛇</router-link>
+        <i v-if="isload[2]" class="loading fas fa-spinner fa-spin"></i>
       </h3>
     </div>
-    <canvas></canvas>
   </div>
 </template>
 <script>
+  require('static/fontawesome-all.min.js')
   export default {
     data() {
       return {
@@ -24,15 +27,29 @@
         bg: {
           backgroundColor: '',
           backgroundImage: 'url(require("assets/texture.png"))'
-        }
+        },
+        isload: [false, false, false]
       }
     },
     mounted() {
       this.bg.backgroundColor = this.color[Math.floor(Math.random() * this.color.length)]
+    },
+    methods: {
+      loading(index) {
+        this.isload.splice(index, 1, true)
+        console.log(this.isload)
+      }
     }
   }
 </script>
 <style scoped>
+  .loading {
+    position: absolute;
+    right: 30px;
+    top: 20%;
+    color: #fff;
+    font-size: inherit;
+  }
   #box {
     width: 100%;
     height: 100%;
@@ -68,10 +85,12 @@
     letter-spacing: 1em;
     margin-bottom: 30px;
     margin-left: 20px;
+    position: relative;
   }
   h3 {
     font-size: 18px;
     margin-left: -5px;
+    position: relative;
   }
   p {
     font-size: 16px;
@@ -81,34 +100,10 @@
     letter-spacing: 2px;
   }
 
-  canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
-
   a {
     color: currentColor;
     text-decoration: none;
     font-weight: normal;
     position: relative;
-  }
-  a::before {
-    content: "";
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    right: -30px;
-    top: 45%;
-    background: currentColor;
-    border-radius: 50%;
-    transition: all 0.3s;
-  }
-  a:hover::before {
-    right: -10px;
   }
 </style>

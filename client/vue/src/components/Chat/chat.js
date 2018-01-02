@@ -12,8 +12,8 @@ const chat = {
     this.vm = vm
   },
   conversation: [],
-  Send(msg) {
-    this.socket.emit('chat', msg)
+  Send(msg, userInfo) {
+    this.socket.emit('chat', msg, userInfo)
   },
   Receive() {
     this.socket.on('chat', function (msg) {
@@ -33,9 +33,9 @@ const chat = {
   Reconnect() {
     this.socket.on('reconnect', function () {
       if (chat.vm.userInfo) {
-        this.AddUser(userInfo)
+        this.AddUser(chat.vm.userInfo)
       }
-    });
+    })
   }
 }
 
