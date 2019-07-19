@@ -2,27 +2,27 @@
   <div id="box" :style="bg">
     <div id="wrapper">
       <h1>Catice</h1>
-      <h2 @click="loading(0)">
-        <router-link to="chat">【聊天室】</router-link>
-        <i v-if="isload[0]" class="loading fas fa-spinner fa-spin"></i>
-      </h2>
       <h2>游戏厅</h2>
       <h3 @click="loading(1)">
         <a href="http://yuicer.com/slime">【打败史莱姆】(pc)</a>
-        <p>稍微好那么一点点的游戏。</p>
+        <p>最初之作</p>
         <i v-if="isload[1]" class="loading fas fa-spinner fa-spin"></i>
       </h3>
       <h3 @click="loading(2)">
         <a href="http://yuicer.com/snake">【贪吃蛇】</a>
-        <p>吃掉其他方块的无聊游戏，加载还超慢！摔</p>
+        <p>吃掉其他方块，加载超慢！</p>
         <i v-if="isload[2]" class="loading fas fa-spinner fa-spin"></i>
       </h3>
       <h3 @click="loading(3)">
         <a href="http://yuicer.com/maze">【迷宫】(pc)</a>
-        <p>浪费你的1分钟时间！wasd方向键移动</p>
+        <p>养成游戏探索！wasd方向键移动</p>
         <i v-if="isload[3]" class="loading fas fa-spinner fa-spin"></i>
       </h3>
       <p v-if="isload[1]||isload[2]||isload[3]">正在全力加载！loading...</p>
+      <p>
+        <del><router-link to="chat">【聊天室】,没有钱。服务器挂掉辽</router-link></del>
+      </p>
+
     </div>
   </div>
 </template>
