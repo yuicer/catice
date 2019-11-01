@@ -9,7 +9,7 @@
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.3.0",
     "koa-static": "^4.0.2",
-    "mongoose": "^4.13.5",
+    "mongoose": "^5.7.5",
     "socket.io": "^2.0.4"
   },
   "scripts": {
