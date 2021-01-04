@@ -4,7 +4,7 @@
   "description": "interest driving",
   "main": "app.js",
   "dependencies": {
-    "axios": "^0.17.0",
+    "axios": "^0.21.1",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.3.0",
