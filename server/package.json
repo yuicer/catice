@@ -10,7 +10,7 @@
     "koa-router": "^7.3.0",
     "koa-static": "^4.0.2",
     "mongoose": "^4.13.5",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.4.0"
   },
   "scripts": {
     "start": "node app.js"
