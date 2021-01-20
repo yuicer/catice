@@ -16,7 +16,7 @@
     "aframe-animation-component": "^4.0.0-beta9",
     "aframe-physics-system": "^2.1.0",
     "gh-pages": "^2.0.1",
-    "socket.io": "^2.0.4",
+    "socket.io": "^2.4.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
