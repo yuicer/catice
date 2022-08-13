@@ -1,1 +1,135 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=Content-Type content="text/html; charset=UTF-8"><meta name=viewport content="initial-scale=1,maximum-scale=1,user-scalable=no"><title>catice</title><link href=./static/css/app.a5a508ca16e08e8845cac90901b389b4.css rel=stylesheet></head><body><div id=app></div><script src=./static/fontawesome-all.min.js></script><script type=text/javascript src=./static/js/manifest.ce7abdd48eb0185af42a.js></script><script type=text/javascript src=./static/js/vendor.a55e0325f877bc8a4061.js></script><script type=text/javascript src=./static/js/app.9392b95b8d35c683cd7f.js></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>catice</title>
+  </head>
+  <body>
+    <div id="box">
+      <div id="wrapper">
+        <h1>Catice</h1>
+        <h2>
+          <a href="http://yuicer.com/klotski">【数字华容道】(h5+pc)</a>
+          <p>点击格子进行移动，过关后再此点击画面进入下一关</p>
+        </h2>
+        <h2>
+          <a href="http://yuicer.com/flappycat">【彩虹小鸟猫】(pc)</a>
+          <p>从 flappy bird 而来，进行跳跃躲避障碍</p>
+        </h2>
+        <h2>
+          <a href="http://yuicer.com/rainbowCat">【彩虹喵飞机大战】(pc)</a>
+          <p>wasd移动，空格键射击</p>
+        </h2>
+        <h2>
+          <a href="http://yuicer.com/slime">【打败史莱姆】(pc)</a>
+          <p>使用 wasd 和鼠标左键进行操作，注意进行背后攻击</p>
+        </h2>
+        <h2>
+          <a href="http://yuicer.com/maze">【迷宫】(pc)</a>
+          <p>wasd 方向键移动，进行迷宫宝藏探索</p>
+        </h2>
+        <h2>
+          <a href="http://yuicer.com/snake">【贪吃蛇】</a>
+          <p>吃掉其他方块，加载较慢</p>
+        </h2>
+      </div>
+    </div>
+    <script>
+      const color = [
+        "#58B2DC",
+        "#9E7A7A",
+        "#B5495B",
+        "#B47157",
+        "#7BA23F",
+        "#6E75A4",
+        "#0C0C0C",
+        "#707C74",
+      ];
+      const bgdom = document.querySelector("#box");
+      bgdom.style.backgroundColor = color[Math.floor(
+        Math.random() * color.length
+      )];
+    </script>
+  </body>
+  <style scoped>
+     html {
+    font-size: calc(100vw / 3.75);
+  }
+  html,
+  body,
+  #box {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+    #box {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      width: 100%;
+      height: 100%;
+      min-height: 600px;
+      min-width: 375px;
+      background-image: url("./texture.png");
+    }
+    #wrapper {
+      position: absolute;
+      left: 0;
+      width: 320px;
+      text-align: center;
+      left: 50%;
+      top: 30%;
+      transform: translate3d(-50%, -30%, 0);
+      /* margin-left: -160px; */
+      /* margin-top: -160px; */
+
+      color: #fff;
+      font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: 36px;
+      letter-spacing: 0.8em;
+      text-transform: uppercase;
+      margin-bottom: 50px;
+      margin-left: 20px;
+    }
+
+    h2 {
+      font-weight: normal;
+      font-size: 26px;
+      letter-spacing: 1em;
+      margin-bottom: 30px;
+      margin-left: 20px;
+      position: relative;
+    }
+    h2 > p {
+      font-size: 15px;
+    }
+    h2 {
+      font-size: 18px;
+      margin-left: -5px;
+      position: relative;
+      letter-spacing: 2px;
+    }
+    p {
+      font-size: 16px;
+      font-weight: lighter;
+      line-height: 2em;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+
+    a {
+      color: currentColor;
+      text-decoration: none;
+      font-weight: normal;
+      position: relative;
+    }
+  </style>
+</html>
