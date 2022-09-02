@@ -11,13 +11,13 @@
       <div id="wrapper">
         <h1>Catice</h1>
         <h2>
+          <a href="http://yuicer.com/flappycat">【小鸟猫】(h5+pc)</a>
+          <p>从 flappy bird 而来，点击进行跳跃来自由飞翔吧！</p>
+        </h2>
+        <h2>
           <a href="http://yuicer.com/klotski">【数字华容道】(h5+pc)</a>
           <p>点击格子进行移动，过关后再此点击画面进入下一关</p>
         </h2>
-        <!-- <h2>
-          <a href="http://yuicer.com/flappycat">【彩虹小鸟猫】(pc)</a>
-          <p>从 flappy bird 而来，进行跳跃躲避障碍</p>
-        </h2> -->
         <h2>
           <a href="http://yuicer.com/rainbowCat">【彩虹喵飞机大战】(pc)</a>
           <p>wasd移动，空格键射击</p>
@@ -48,23 +48,22 @@
         "#707C74",
       ];
       const bgdom = document.querySelector("#box");
-      bgdom.style.backgroundColor = color[Math.floor(
-        Math.random() * color.length
-      )];
+      bgdom.style.backgroundColor =
+        color[Math.floor(Math.random() * color.length)];
     </script>
   </body>
   <style scoped>
-     html {
-    font-size: calc(100vw / 3.75);
-  }
-  html,
-  body,
-  #box {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-  }
+    html {
+      font-size: calc(100vw / 3.75);
+    }
+    html,
+    body,
+    #box {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
 
     #box {
       -webkit-user-select: none;
